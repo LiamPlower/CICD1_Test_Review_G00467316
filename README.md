@@ -11,11 +11,33 @@ Review the code **as submitted in the original examination**. Do not change the 
 
 ### Task 1 — /40
 **My mark: 15**  
-**Evidence from the original code (files, methods, working or missing requirements): I created a Booking model and a dto called CreateBookingRequest. I stored the organiser name, attendee count, booking status and associated room in the Booking model alongside looking for the booking/room ID. I did not have the booking starts with status ACTIVE, wether the organiser name is between 2-60 characters and not blank, I also did not have the count as positive whole number. I felt like I didnt understand what to do with separate input and output DTOs. I also feel as if i started with the APIs responses containing all the information but not fully sure.  **  
+**Evidence from the original code (files, methods, working or missing requirements): I created a Booking model and a dto called CreateBookingRequest. I stored the organiser name, attendee count, booking status and associated room in the Booking model alongside looking for the booking/room ID. I did not have the booking starts with status ACTIVE, wether the organiser name is between 2-60 characters and not blank, I also did not have the count as positive whole number. I felt like I didnt understand what to do with separate input and output DTOs. I also feel as if i started with the APIs responses containing all the information but not fully sure. 
+
+private String organiserName;
+
+private String Count;
+
+private String status;
+
+private String roomName;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    private Booking booking; **  
 
 ### Task 2 — /40
 **My mark: 10**  
-**Evidence from the original code: I never used PostMapping to create or persist a booking but I know how to use it just don't know why I didn't start with it at the very beginning and used a load of GETs instead. I feel as if I understood the retrieving bookings as I had started it but did struggle to finish them and to get the returns of them, after class i then did research and found out I forgot to add to my pom.xml file at the beginning to allow them to work properly. Finally then I did not move onto the missing rooms or bookings or when bookings exceeded room capacity.**  
+**Evidence from the original code: I never used PostMapping to create or persist a booking but I know how to use it just don't know why I didn't start with it at the very beginning and used a load of GETs instead. I feel as if I understood the retrieving bookings as I had started it but did struggle to finish them and to get the returns of them, after class i then did research and found out I forgot to add to my pom.xml file at the beginning to allow them to work properly. Finally then I did not move onto the missing rooms or bookings or when bookings exceeded room capacity.
+
+   @GetMapping("/Id")
+   public List<Booking> getId(@PathVariable Long id){
+   return bookingService.getClass();
+   }
+
+    @GetMapping("/Count")
+    public List<Booking> getByCount(@RequestParam("count")  int count){
+        return bookingService.create(count, BookingService);
+    }**  
 
 ### Task 3 — /20
 **My mark: 1**  
