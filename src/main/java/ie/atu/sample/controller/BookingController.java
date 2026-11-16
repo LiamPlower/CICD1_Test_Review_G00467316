@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -21,6 +23,11 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<BookingResponse> createBooking(@Valid @RequestBody BookingRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(request));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<BookingResponse>> searchBookings(@RequestParam String roomName) {
+        return ResponseEntity.ok(bookingService.searchByRoomName(roomName));
     }
 
     @GetMapping("/{id}")

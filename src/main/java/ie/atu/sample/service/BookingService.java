@@ -10,6 +10,8 @@ import ie.atu.sample.repository.BookingRepository;
 import ie.atu.sample.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookingService {
 
@@ -45,6 +47,12 @@ public class BookingService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Booking not found with id " + id));
         return toResponse(booking);
+    }
+    public List<BookingResponse> searchByRoomName(String roomName) {
+        return bookingRepository.findByRoomNameOrderByAttendeeCountDesc(roomName)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     private BookingResponse toResponse(Booking booking) {
