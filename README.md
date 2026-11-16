@@ -53,11 +53,29 @@ Start from a **fresh copy of the starter template for your own exam group**, in 
 
 Describe **two or three important problems** in your original code. For each, explain what was wrong, which class or method you changed in the new project, and why the corrected approach works.
 
-**Problem and correction 1:**  
+**Problem and correction 1: First problem in my original project was I used annotations such as  
+`@NotBlank` and `@Positive`, but the correct dependency was missing from `pom.xml`,
+so validation did not work and the code would not compile properly. To fix this I added `spring-boot-starter-validation` to `pom.xml` in the
+  new project, and used `@Valid` on the request body in `BookingController`. It now works because the dependency provides the validation annotations
+, so invalid inputs are rejected using 400 as a response.
 
-**Problem and correction 2:**  
+**Problem and correction 2: Second Correction was adding the correct packages and java classes. My original code did not have a proper Booking entity or a
+status for each booking, so I could not store bookings or track their state.
+To fix this I added `Booking` and `BookingStatus` (ACTIVE, CANCELLED) to
+  the `model` package and new
+  bookings default to ACTIVE.
+It now works because the entity lets bookings be saved and retrieved with their room
+  and status, and the enum limits status to valid values.
 
-**Problem and correction 3 (optional):**  
+**Problem and correction 3 (optional): Adding Exception to my code. My original code had no exception handling, so a missing
+room, a missing booking, or an over-capacity booking had no meaningful error
+response.
+To fix this I added `ResourceNotFoundException`, `CapacityExceededException`
+  and a `GlobalExceptionHandler` and the checks in
+  `BookingService.createBooking` and `getBooking`.
+It now works because each problem is now thrown as a specific exception and the handler
+  converts it to the right HTTP status (404 for missing, 400 for invalid or over
+  capacity) with a clear message.
 
 ## 3. API testing and evidence
 
@@ -88,8 +106,6 @@ Use Swagger UI or another HTTP client. For **at least four meaningful checks**, 
 - Pass / fail:  
 
 **Group A:** Demonstrate `GET /api/bookings/search?roomName=...` using an exact room name, bookings ordered by attendee count descending, and an empty list for no matches. Add checks if necessary to show all three behaviours.
-
-**Group B:** Run the **provided** Room Service separately on port 8082 and the **new** Booking Service on port 8081. Demonstrate that booking creation obtains room details through OpenFeign and that booking retrieval uses the local Booking database. Do not modify the Room Service.
 
 ## 4. Reflection
 
